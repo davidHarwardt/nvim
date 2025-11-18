@@ -18,7 +18,7 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-local transparent_themes = true
+local transparent_themes = false
 
 -- init plugins
 require("lazy").setup {
@@ -29,7 +29,7 @@ require("lazy").setup {
         config = function()
             vim.g.sonokai_transparent_background = transparent_themes and 1 or 0
             vim.g.sonokai_better_performance = 1
-            vim.cmd [[colorscheme sonokai]]
+            -- vim.cmd [[colorscheme sonokai]]
         end
     },
     {
@@ -80,6 +80,39 @@ require("lazy").setup {
                 floating_windows = true,
             },
         },
+    },
+    {
+        'AlexvZyl/nordic.nvim',
+        event = "VeryLazy",
+        config = function()
+            -- require('nordic').load()
+        end
+    },
+    {
+        "olivercederborg/poimandres.nvim",
+        event = "VeryLazy",
+        config = function()
+            require('poimandres').setup {}
+        end,
+        -- init = function() vim.cmd("colorscheme poimandres") end
+    },
+    {
+        "lvim-tech/lvim-colorscheme",
+        event = "VeryLazy",
+        config = function()
+            -- require("lvim-colorscheme").setup()
+        end,
+    },
+    {
+        "Shatur/neovim-ayu",
+        event = "VeryLazy",
+    },
+    {
+        "dgox16/oldworld.nvim", -- event = "VeryLazy",
+        lazy = false, priority = 1000,
+        config = function ()
+            vim.cmd [[colorscheme oldworld]]
+        end
     },
     { "nyoom-engineering/oxocarbon.nvim", event = "VeryLazy" },
     { "ntk148v/komau.vim", event = "VeryLazy" },
@@ -164,6 +197,7 @@ require("lazy").setup {
 
     -- lsp
     require("dvmujic.plugins.lspconfig"),   -- individual servers
+    -- require("dvmujic.plugins.dap"),         -- debugging
     require("dvmujic.plugins.cmp"),         -- completion
     require("dvmujic.plugins.fidget"),      -- lsp loading spinner
     require("dvmujic.plugins.luasnip"),
@@ -204,12 +238,12 @@ require("lazy").setup {
             })
         end,
     },
-    {
+    --[[ {
         'saecki/crates.nvim',
         tag = "stable",
         event = { "BufRead Cargo.toml" },
         config = function() require('crates').setup() end,
-    },
+    }, ]]--
     {
         "IndianBoy42/tree-sitter-just",
         config = function ()

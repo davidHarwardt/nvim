@@ -6,3 +6,4 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
     callback = function() vim.bo.filetype = "wgsl" end,
 })
 
+

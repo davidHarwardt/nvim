@@ -24,7 +24,7 @@ return {
         local luasnip = require("luasnip")
         local icons = require("dvmujic.icons")
 
-        require("dvmujic.plugins.cmp.umlaut").setup()
+        -- require("dvmujic.plugins.cmp.umlaut").setup()
 
         cmp.setup {
             sources = cmp.config.sources({

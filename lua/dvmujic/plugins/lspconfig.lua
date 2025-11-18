@@ -59,6 +59,7 @@ return {
             -- denols = {},
             svelte = {},
             tailwindcss = {},
+            -- cssls = {},
 
             -- dsls
             -- pest_ls = {},
@@ -66,6 +67,7 @@ return {
             astro = {},
             wgsl_analyzer = {},
             taplo = {},
+            csharp_ls = {},
 
             lua_ls = {
                 Lua = {
@@ -77,7 +79,7 @@ return {
             },
 
             sourcekit = {},
-            harper_ls = {
+            --[[ harper_ls = {
                 ["harper-ls"] = {
                     linters = {
                         sentence_capitalization = false,
@@ -85,21 +87,22 @@ return {
                         spaces = false,
                     }
                 }
-            }
+            } ]]--
         }
 
         for k, v in pairs(servers) do
             lspconfig[k].setup {
                 capabilities = caps,
-                offset_encoding = "utf-8",
+                -- offset_encoding = "utf-8",
                 flags = flags,
                 settings = v,
             }
         end
 
         local allow_snippets = caps
-        -- allow_snippets.textDocument.completion.completionItem.snippetSupport = true
+        allow_snippets.textDocument.completion.completionItem.snippetSupport = true
 
+        lspconfig.cssls.setup { capabilities = allow_snippets, flags = flags }
         -- lspconfig.html.setup { capabilities = allow_snippets, flags = flags }
 
         -- emmet
@@ -165,6 +168,8 @@ return {
                 local opts = { buffer = ev.buf }
                 vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
                 vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+
+                vim.keymap.set("n", "gb", "<C-o>", opts)
 
                 vim.keymap.set("n", "<leader>l", vim.diagnostic.open_float, opts)
                 vim.keymap.set("n", "<leader>k", vim.lsp.buf.hover, opts)
